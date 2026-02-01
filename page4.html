@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Nous</title>
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, #ffccd5, #5a3a2e);
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+  }
+
+  h1 {
+    margin: 40px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    padding: 40px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform 0.3s;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .music {
+    height: 6px;
+    background: white;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .music span {
+    display: block;
+    height: 100%;
+    width: 40%;
+    background: #ff5fa2;
+    animation: play 4s linear infinite;
+  }
+
+  @keyframes play {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 15px;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>Tout ce qui représente notre amour</h1>
+
+<div class="grid">
+
+  <div class="card">
+    <h3>I LOVE YOU – Fontaine D.C</h3>
+    <div class="music"><span></span></div>
+  </div>
+
+  <div class="card">
+    <h3>Europa-Park</h3>
+    <img src="europapark.jpg">
+  </div>
+
+  <div class="card">
+    <h3>Orelsan – Civilisation</h3>
+    <img src="civilisation.jpg">
+  </div>
+
+  <div class="card">
+    <h3>Jamiroquai – Cosmic Girl</h3>
+    <div class="music"><span></span></div>
+  </div>
+
+  <div class="card">
+    <h3>Des roses pour toi</h3>
+    <img src="rose.png">
+  </div>
+
+  <div class="card">
+    <h3>Danganronpa 1</h3>
+    <p>Notre univers, notre jeu</p>
+  </div>
+
+</div>
+
+</body>
+</html>
