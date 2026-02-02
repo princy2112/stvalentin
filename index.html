@@ -42,7 +42,7 @@ html, body {
     }
 }
 
-/* 💌 CONTENU */
+/* 💌 CONTENU PRINCIPAL */
 .container {
     position: relative;
     z-index: 2;
@@ -66,26 +66,44 @@ h1 {
     height: 120px;
 }
 
+/* BOUTONS */
 button {
-    padding: 15px 40px;
+    padding: 0;
     font-size: 1.2em;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.25s ease;
-    position: absolute;
+    transition: left 0.15s ease, top 0.15s ease, transform 0.15s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* BOUTON OUI */
 #yesBtn {
     background: #ff5fa2;
     color: white;
+    width: 140px;
+    height: 60px;
     left: 0;
+    position: absolute;
 }
 
+/* BOUTON NON */
 #noBtn {
     background: #7b4a3a;
     color: white;
-    right: 0;
+    width: 100px;
+    height: 60px;
+    left: 200px;
+    top: 40px;
+    position: absolute;
+}
+
+#noBtn span {
+    pointer-events: none;
+    display: inline-block;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -95,17 +113,31 @@ button {
 <div class="hearts-container" id="hearts"></div>
 
 <div class="container">
-    <h1>Veux-tu être ma Valentine ?</h1>
+    <h1>Veux-tu être ma Valentine ? 💘</h1>
 
     <div class="buttons">
-        <button id="yesBtn">OUI ❤️</button>
-        <button id="noBtn">NON 🙈</button>
+        <button id="yesBtn">OUI 💖</button>
+        <button id="noBtn"><span>NON 🙈</span></button>
     </div>
 </div>
 
 <script>
-const noBtn = document.getElementById('noBtn');
+/* 💕 PLUIE CONTINUE DE CŒURS */
+const heartsContainer = document.getElementById('hearts');
 
+setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '💗';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (6 + Math.random() * 4) + 's';
+    heartsContainer.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 10000);
+}, 250);
+
+/* 😈 BOUTON NON : FUITE + DÉFORMATION */
+const noBtn = document.getElementById('noBtn');
 let posX = noBtn.offsetLeft;
 let posY = noBtn.offsetTop;
 
@@ -138,12 +170,11 @@ document.addEventListener('mousemove', (e) => {
 
         noBtn.style.transform = `scale(${scaleX}, ${scaleY}) rotate(${stress * 6}deg)`;
     } else {
-        // retour à la normale
         noBtn.style.transform = 'scale(1,1) rotate(0deg)';
     }
 });
 
-/* BOUTON OUI */
+/* 💖 BOUTON OUI */
 document.getElementById('yesBtn').addEventListener('click', () => {
     window.location.href = 'yes.html';
 });
