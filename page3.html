@@ -1,75 +1,138 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Tout ce que j’aime chez toi</title>
-<style>
-  body {
-    margin: 0;
-    background: #5a3a2e;
-    color: #ffd1e8;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pourquoi toi ?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-bg: #ffe4e1;
+            --text-color: #5d4037;
+        }
 
-  .scroll {
-    position: absolute;
-    width: 100%;
-    bottom: -100%;
-    text-align: center;
-    font-size: 1.5em;
-    line-height: 2.2em;
-    animation: scroll 36000s linear infinite;
-    padding: 50px;
-  }
+        body {
+            margin: 0;
+            background-color: var(--pink-bg);
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-  @keyframes scroll {
-    from { transform: translateY(100%); }
-    to { transform: translateY(-20000px); }
-  }
+        h2 {
+            font-family: 'Pacifico', cursive;
+            margin-top: 20px;
+            font-size: 2rem;
+            z-index: 10;
+            background: var(--pink-bg);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
 
-  button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 15px 30px;
-    border-radius: 30px;
-    border: none;
-    background: #ff5fa2;
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-    z-index: 10;
-  }
-</style>
+        .scroll-container {
+            flex-grow: 1;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+            mask-image: linear-gradient(transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(transparent, black 10%, black 90%, transparent);
+            margin-bottom: 20px;
+        }
+
+        .scroll-content {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            /* Une animation très lente pour durer "des heures" - Ajuste 400s selon envie */
+            animation: scrollUp 400s linear infinite; 
+        }
+
+        .scroll-content p {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .next-btn {
+            margin-bottom: 30px;
+            padding: 10px 25px;
+            background-color: var(--text-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 10;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="scroll">
-  Tu rends chaque jour meilleur<br>
-  Avec toi tout paraît facile<br>
-  J’adore ton sourire<br>
-  Tu es mon rayon de soleil<br>
-  Tu me fais tellement rire<br>
-  Tu es vraiment unique<br>
-  Je suis chanceuse de t’avoir<br>
-  Tu me rends tellement heureuse<br>
-  Ton regard me fait fondre<br>
-  Tu es mon rêve devenu réalité<br>
-  Tu es incroyablement intelligente<br>
-  J’aime tellement passer du temps avec toi<br>
-  Tu me fais toujours sentir spéciale<br>
-  Tu es mon refuge<br>
-  Tu rends ma vie plus belle<br>
-  J’aime ta façon de penser<br>
-  Avec toi je me sens complète<br>
-  Je me sens en sécurité avec toi<br>
-  Tu es tout ce que je veux<br>
-  Tu es l’amour de ma vie
-</div>
+    <h2>Tout ce que j'aime chez toi...</h2>
 
-<button onclick="location.href='page4.html'">SUIVANT</button>
+    <div class="scroll-container">
+        <div class="scroll-content" id="complimentsList">
+            </div>
+    </div>
 
+    <button class="next-btn" onclick="window.location.href='page4.html'">Encore une chose... ➜</button>
+
+    <script>
+        const compliments = [
+            "Tu rends chaque jour meilleur", "Avec toi tout paraît facile", "J’adore ton sourire",
+            "Tu es mon rayon de soleil", "Tu me fais tellement rire", "Tu es vraiment unique",
+            "Je suis chanceuse de t’avoir", "Tu me rends tellement heureuse", "Ton regard me fait fondre",
+            "Tu es mon rêve devenu réalité", "Tu es incroyablement intelligente", "J’aime tellement passer du temps avec toi",
+            "Tu me fais toujours sentir spéciale", "Tu es mon refuge", "Tu rends ma vie plus belle",
+            "J’aime ta façon de penser", "Avec toi je me sens complète", "Je me sens en sécurité avec toi",
+            "Tu es tout ce que je veux", "Tu as un cœur en or", "Tu me comprends mieux que personne",
+            "Tu as le sourire le plus charmant", "Je te trouve tellement sexy", "Tu es tellement attentionnée",
+            "Tu m’inspires chaque jour", "J’admire ta force", "Ton humour est irrésistible",
+            "Tu es toujours là pour moi", "Ton étreinte est mon endroit préféré", "Tu es mon héroïne",
+            "Je suis fière de toi", "Je t’aime plus que tout", "Tu rends tout meilleur juste en étant là",
+            "J’aime ta créativité", "Ton soutien signifie le monde pour moi", "Tu es si charmante",
+            "Tu es la meilleure partie de ma journée", "Tu me fais sentir belle", "J’aime la façon dont tu prends soin de moi",
+            "Tu es tellement douce", "Tu as un esprit brillant", "Ton amour me donne des ailes",
+            "J’aime ton sens des valeurs", "Tu es parfaite pour moi", "Tu es ma meilleure amie",
+            "Je me perds dans tes yeux", "Tu es ma raison de sourire", "Tu es ma plus belle aventure",
+            "J’adore ton côté protecteur", "Tu me rassures tellement", "J’aime la manière dont tu me regardes",
+            "Ton énergie est contagieuse", "Tu es si charmante quand tu es concentrée", "Tu rends tout plus intéressant",
+            "Tu es tellement rassurante", "J’aime ton esprit joueur", "Tu es ma moitié",
+            "Tu es ma plus grande bénédiction", "Tu es ma personne préférée", "Tu es une vraie lady",
+            "J’aime la façon dont tu m’écoutes", "Tu es ma définition du bonheur", "Ton sourire illumine ma journée",
+            "Je te trouve irrésistible", "J’aime tellement ta douceur", "Tu es la femme de mes rêves",
+            "Tu es ma source de bonheur", "Je te trouve tellement impressionnante", "Tu es mon équilibre",
+            "Tu es tellement talentueuse", "Avec toi je me sens à ma place", "Tu es un ange",
+            "Tu rends tout plus beau", "Tu es mon pilier", "Tu es mon tout",
+            "J’aime chaque petit détail chez toi", "Tu as un charme fou", "Tu es un cadeau dans ma vie",
+            "J’adore ton côté passionné", "Tu es tellement rassurante", "Tu me fais sentir en paix",
+            "J’aime ta manière de voir le monde", "Ton amour me remplit de joie", "Tu es mon bonheur quotidien",
+            "Je t’aime pour qui tu es", "Tu es si attentionnée", "Tu es mon havre de paix",
+            "J’aime ton optimisme", "Tu es ma force", "Tu es mon âme sœur",
+            "Tu rends chaque moment magique", "Tu es tellement séduisante", "Ton rire est ma mélodie préférée",
+            "J’aime ton côté protecteur", "Tu es ma meilleure confidente", "Tu es ma plus belle découverte",
+            "J’aime la façon dont tu prends soin de nous", "Tu es mon plus grand trésor", "Avec toi tout est possible",
+            "Tu es l’amour de ma vie"
+        ];
+
+        const container = document.getElementById('complimentsList');
+        
+        // On double la liste 3 fois pour s'assurer que l'animation dure longtemps avant de boucler (si on voulait une boucle parfaite, il faudrait du JS plus complexe, ici on mise sur la durée)
+        const fullList = [...compliments, ...compliments, ...compliments].join('</p><p>');
+        container.innerHTML = `<p>${fullList}</p>`;
+
+    </script>
 </body>
+</html>
 </html>
