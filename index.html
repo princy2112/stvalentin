@@ -15,7 +15,29 @@ html, body {
     overflow: hidden;
 }
 
+/* 💕 CŒURS EN FOND */
+.heart-bg {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.6;
+    animation: float 8s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0;
+    }
+    10% { opacity: 0.6; }
+    100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+    }
+}
+
 .container {
+    position: relative;
+    z-index: 2;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -32,8 +54,8 @@ h1 {
 
 .buttons {
     position: relative;
-    width: 100%;
-    height: 200px;
+    width: 300px;
+    height: 150px;
 }
 
 button {
@@ -42,31 +64,26 @@ button {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease;
     position: absolute;
 }
 
 #yesBtn {
     background: #ff5fa2;
     color: white;
-    left: 50%;
-    transform: translateX(-120%);
-}
-
-#yesBtn:hover {
-    transform: translateX(-120%) scale(1.1);
+    left: 0;
 }
 
 #noBtn {
     background: #7b4a3a;
     color: white;
-    left: 50%;
-    transform: translateX(20%);
+    right: 0;
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
     <h1>Veux-tu être ma Valentine ? 💘</h1>
 
@@ -77,19 +94,39 @@ button {
 </div>
 
 <script>
+/* 💕 GÉNÉRATION DES CŒURS EN FOND */
+setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart-bg';
+    heart.innerHTML = '💗';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (6 + Math.random() * 4) + 's';
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 10000);
+}, 300);
+
+/* 😈 BOUTON NON : DÉCALAGE LÉGER PAR RAPPORT AU CURSEUR */
 const noBtn = document.getElementById('noBtn');
 
-noBtn.addEventListener('mouseenter', () => {
-    const x = Math.random() * (window.innerWidth - 150);
-    const y = Math.random() * (window.innerHeight - 80);
+noBtn.addEventListener('mousemove', (e) => {
+    const offset = 30; // distance de fuite (petite)
+    const dirX = e.offsetX < noBtn.offsetWidth / 2 ? offset : -offset;
+    const dirY = e.offsetY < noBtn.offsetHeight / 2 ? offset : -offset;
 
-    noBtn.style.left = x + 'px';
-    noBtn.style.top = y + 'px';
+    noBtn.style.transform = `translate(${dirX}px, ${dirY}px)`;
 });
 
+noBtn.addEventListener('mouseleave', () => {
+    noBtn.style.transform = 'translate(0, 0)';
+});
+
+/* 💖 BOUTON OUI */
 document.getElementById('yesBtn').addEventListener('click', () => {
     window.location.href = "yes.html";
 });
 </script>
+
 </body>
 </html>
+
