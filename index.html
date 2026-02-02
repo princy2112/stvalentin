@@ -104,52 +104,42 @@ button {
 </div>
 
 <script>
-/* 💕 PLUIE CONTINUE DE CŒURS */
-const heartsContainer = document.getElementById('hearts');
-
-setInterval(() => {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.textContent = '💗';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.animationDuration = (6 + Math.random() * 4) + 's';
-    heartsContainer.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 10000);
-}, 250);
-
-/* 😈 BOUTON NON : FUITE AVANT CONTACT */
 const noBtn = document.getElementById('noBtn');
-let offsetX = 0;
-let offsetY = 0;
+
+/* position réelle accumulée */
+let posX = noBtn.offsetLeft;
+let posY = noBtn.offsetTop;
 
 document.addEventListener('mousemove', (e) => {
     const rect = noBtn.getBoundingClientRect();
-    const btnX = rect.left + rect.width / 2;
-    const btnY = rect.top + rect.height / 2;
+    const btnCenterX = rect.left + rect.width / 2;
+    const btnCenterY = rect.top + rect.height / 2;
 
-    const distX = e.clientX - btnX;
-    const distY = e.clientY - btnY;
-    const distance = Math.sqrt(distX * distX + distY * distY);
+    const dx = e.clientX - btnCenterX;
+    const dy = e.clientY - btnCenterY;
+    const distance = Math.hypot(dx, dy);
 
-    const triggerDistance = 80; // distance d'activation
-    const maxMove = 35;         // déplacement max
+    const trigger = 120;   // distance d'activation
+    const speed = 20;      // force de fuite
 
-    if (distance < triggerDistance) {
-        const angle = Math.atan2(distY, distX);
-        offsetX = -Math.cos(angle) * maxMove;
-        offsetY = -Math.sin(angle) * maxMove;
-        noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-    } else {
-        noBtn.style.transform = 'translate(0, 0)';
+    if (distance < trigger) {
+        const angle = Math.atan2(dy, dx);
+
+        /* on s'éloigne du curseur */
+        posX -= Math.cos(angle) * speed;
+        posY -= Math.sin(angle) * speed;
+
+        noBtn.style.left = posX + 'px';
+        noBtn.style.top = posY + 'px';
     }
 });
 
-/* 💖 BOUTON OUI */
+/* BOUTON OUI */
 document.getElementById('yesBtn').addEventListener('click', () => {
     window.location.href = 'yes.html';
 });
 </script>
+
 
 
 </body>
