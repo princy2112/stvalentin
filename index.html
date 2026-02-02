@@ -163,15 +163,6 @@ document.addEventListener('mousemove', (e) => {
         noBtn.style.left = posX + 'px';
         noBtn.style.top = posY + 'px';
 
-        // 💥 DÉFORMATION (stretch / squash)
-        const stress = Math.min((trigger - distance) / trigger, 1);
-        const scaleX = 1 + stress * 0.4;
-        const scaleY = 1 - stress * 0.3;
-
-        noBtn.style.transform = `scale(${scaleX}, ${scaleY}) rotate(${stress * 6}deg)`;
-    } else {
-        noBtn.style.transform = 'scale(1,1) rotate(0deg)';
-    }
 });
 
 /* 💖 BOUTON OUI */
