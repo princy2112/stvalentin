@@ -1,103 +1,213 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Nous</title>
-<style>
-  body {
-    margin: 0;
-    background: linear-gradient(180deg, #ffccd5, #5a3a2e);
-    font-family: Arial, sans-serif;
-    color: white;
-    text-align: center;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notre Univers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-bg: #fff0f5;
+            --card-bg: #fff;
+            --brown: #5d4037;
+            --highlight: #ff69b4;
+        }
 
-  h1 {
-    margin: 40px;
-  }
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: var(--pink-bg);
+            font-family: 'Quicksand', sans-serif;
+            color: var(--brown);
+            min-height: 100vh;
+        }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    padding: 40px;
-  }
+        h1 {
+            text-align: center;
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--brown);
+        }
 
-  .card {
-    background: rgba(255,255,255,0.15);
-    border-radius: 20px;
-    padding: 20px;
-    transition: transform 0.3s;
-  }
+        /* Grid Layout */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
 
-  .card:hover {
-    transform: scale(1.05);
-  }
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(93, 64, 55, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-  .music {
-    height: 6px;
-    background: white;
-    border-radius: 5px;
-    overflow: hidden;
-  }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(93, 64, 55, 0.2);
+        }
 
-  .music span {
-    display: block;
-    height: 100%;
-    width: 40%;
-    background: #ff5fa2;
-    animation: play 4s linear infinite;
-  }
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
 
-  @keyframes play {
-    from { width: 0; }
-    to { width: 100%; }
-  }
+        .card-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--highlight);
+        }
 
-  img {
-    max-width: 100%;
-    border-radius: 15px;
-  }
-</style>
+        .card-desc {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Specific Styles */
+        
+        /* Spotify / Music Style */
+        .music-player {
+            background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
+            color: white;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #555;
+            margin-top: 10px;
+            border-radius: 2px;
+            position: relative;
+        }
+        .progress-fill {
+            width: 60%;
+            height: 100%;
+            background: #1db954;
+        }
+
+        /* Vinyl Spin */
+        .vinyl-record {
+            width: 120px !important;
+            height: 120px !important;
+            border-radius: 50%;
+            animation: spin 5s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Danganronpa Style */
+        .dangan-card {
+            border: 2px solid #ff0055;
+            background: #000;
+            color: #fff;
+        }
+        .dangan-text {
+            font-family: monospace;
+            color: #ff0055;
+            text-transform: uppercase;
+        }
+
+        /* Floating Roses */
+        .roses-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            pointer-events: none;
+        }
+        .rose-float {
+            width: 50px;
+            height: 50px;
+            animation: floatRose 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatRose { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+
+        /* Staggered Animation Delay */
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.3s; }
+        .card:nth-child(3) { animation-delay: 0.5s; }
+        .card:nth-child(4) { animation-delay: 0.7s; }
+        .card:nth-child(5) { animation-delay: 0.9s; }
+        .card:nth-child(6) { animation-delay: 1.1s; }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--brown);
+            font-weight: bold;
+        }
+    </style>
 </head>
-
 <body>
 
-<h1>Tout ce qui représente notre amour</h1>
+    <h1>Nos Souvenirs & Symboles</h1>
 
-<div class="grid">
+    <div class="gallery">
+        
+        <div class="card music-player">
+            <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=400&q=80" alt="Album Cover">
+            <div class="card-title">I Love You</div>
+            <div class="card-desc">Fontaines D.C.</div>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            <div style="margin-top:10px; font-size: 20px;">⏮ ▶ ⏭</div>
+        </div>
 
-  <div class="card">
-    <h3>I LOVE YOU – Fontaine D.C</h3>
-    <div class="music"><span></span></div>
-  </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1513883049090-d0b7439799bf?auto=format&fit=crop&w=400&q=80" alt="Europa Park">
+            <div class="card-title">Europa-Park 🎢</div>
+            <div class="card-desc">Nos meilleures sensations fortes.</div>
+        </div>
 
-  <div class="card">
-    <h3>Europa-Park</h3>
-    <img src="europapark.jpg">
-  </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80" alt="Concert">
+            <div class="card-title">Civilisation 🎤</div>
+            <div class="card-desc">Orelsan - Notre bande son.</div>
+        </div>
 
-  <div class="card">
-    <h3>Orelsan – Civilisation</h3>
-    <img src="civilisation.jpg">
-  </div>
+        <div class="card" style="background:#fce4ec;">
+            <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea616?auto=format&fit=crop&w=400&q=80" alt="Vinyl" class="vinyl-record">
+            <div class="card-title" style="margin-top:10px;">Cosmic Girl 🎶</div>
+            <div class="card-desc">Jamiroquai - Groovy Love</div>
+        </div>
 
-  <div class="card">
-    <h3>Jamiroquai – Cosmic Girl</h3>
-    <div class="music"><span></span></div>
-  </div>
+        <div class="card">
+            <div class="roses-container">🌹</div>
+            <img src="https://images.unsplash.com/photo-1496062031456-07b8f162a322?auto=format&fit=crop&w=400&q=80" alt="Roses">
+            <div class="card-title">Pour toi 🌹</div>
+            <div class="card-desc">Parce que tu es ma rose préférée.</div>
+        </div>
 
-  <div class="card">
-    <h3>Des roses pour toi</h3>
-    <img src="rose.png">
-  </div>
+        <div class="card dangan-card">
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" alt="Game">
+            <div class="card-title dangan-text">Danganronpa</div>
+            <div class="card-desc" style="color:#ddd;">Le frisson du mystère... et de l'amour.</div>
+        </div>
 
-  <div class="card">
-    <h3>Danganronpa 1</h3>
-    <p>Notre univers, notre jeu</p>
-  </div>
+    </div>
 
-</div>
+    <footer>
+        <p>Joyeuse Saint-Valentin mon amour ❤️</p>
+    </footer>
 
 </body>
 </html>
