@@ -15,26 +15,34 @@ html, body {
     overflow: hidden;
 }
 
-/* 💕 CŒURS EN FOND */
-.heart-bg {
-    position: absolute;
-    font-size: 20px;
-    opacity: 0.6;
-    animation: float 8s linear infinite;
+/* 💕 CONTENEUR DES CŒURS EN FOND */
+.hearts-container {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
 }
 
-@keyframes float {
-    0% {
-        transform: translateY(100vh) scale(0.8);
+.heart {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.7;
+    animation: rise linear forwards;
+}
+
+@keyframes rise {
+    from {
+        transform: translateY(110vh) scale(0.6);
         opacity: 0;
     }
-    10% { opacity: 0.6; }
-    100% {
+    10% { opacity: 0.7; }
+    to {
         transform: translateY(-10vh) scale(1.2);
         opacity: 0;
     }
 }
 
+/* 💌 CONTENU */
 .container {
     position: relative;
     z-index: 2;
@@ -54,8 +62,8 @@ h1 {
 
 .buttons {
     position: relative;
-    width: 300px;
-    height: 150px;
+    width: 320px;
+    height: 120px;
 }
 
 button {
@@ -64,7 +72,7 @@ button {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.25s ease;
     position: absolute;
 }
 
@@ -84,37 +92,39 @@ button {
 
 <body>
 
+<div class="hearts-container" id="hearts"></div>
+
 <div class="container">
-    <h1>Veux-tu être ma Valentine ?</h1>
+    <h1>Veux-tu être ma Valentine ? 💘</h1>
 
     <div class="buttons">
-        <button id="yesBtn">OUI ❤️</button>
+        <button id="yesBtn">OUI 💖</button>
         <button id="noBtn">NON 🙈</button>
     </div>
 </div>
 
 <script>
-/* 💕 GÉNÉRATION DES CŒURS EN FOND */
+/* 💕 PLUIE CONTINUE DE CŒURS */
+const heartsContainer = document.getElementById('hearts');
+
 setInterval(() => {
     const heart = document.createElement('div');
-    heart.className = 'heart-bg';
-    heart.innerHTML = '💗';
+    heart.className = 'heart';
+    heart.textContent = '💗';
     heart.style.left = Math.random() * 100 + 'vw';
     heart.style.animationDuration = (6 + Math.random() * 4) + 's';
-    document.body.appendChild(heart);
+    heartsContainer.appendChild(heart);
 
     setTimeout(() => heart.remove(), 10000);
-}, 300);
+}, 250);
 
-/* 😈 BOUTON NON : DÉCALAGE LÉGER PAR RAPPORT AU CURSEUR */
+/* 😈 BOUTON NON : ESQUIVE LÉGÈRE */
 const noBtn = document.getElementById('noBtn');
 
-noBtn.addEventListener('mousemove', (e) => {
-    const offset = 30; // distance de fuite (petite)
-    const dirX = e.offsetX < noBtn.offsetWidth / 2 ? offset : -offset;
-    const dirY = e.offsetY < noBtn.offsetHeight / 2 ? offset : -offset;
-
-    noBtn.style.transform = `translate(${dirX}px, ${dirY}px)`;
+noBtn.addEventListener('mouseenter', () => {
+    const moveX = (Math.random() > 0.5 ? 1 : -1) * 30;
+    const moveY = (Math.random() > 0.5 ? 1 : -1) * 15;
+    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
 });
 
 noBtn.addEventListener('mouseleave', () => {
@@ -123,10 +133,9 @@ noBtn.addEventListener('mouseleave', () => {
 
 /* 💖 BOUTON OUI */
 document.getElementById('yesBtn').addEventListener('click', () => {
-    window.location.href = "yes.html";
+    window.location.href = 'yes.html';
 });
 </script>
 
 </body>
 </html>
-
