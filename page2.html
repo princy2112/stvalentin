@@ -1,146 +1,81 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Amour</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --pink-light: #ffe4e1;
-            --pink-deep: #ff69b4;
-            --brown: #5d4037;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elle a dit OUI 💕</title>
 
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--pink-light);
-            font-family: 'Quicksand', sans-serif;
-            overflow: hidden;
-        }
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(180deg, #ffcad4, #b08968);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-        h2 {
-            color: var(--brown);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            transition: all 0.5s;
-            text-align: center;
-            z-index: 10;
-        }
+.message {
+    text-align: center;
+    color: #6d2e46;
+    z-index: 5;
+    animation: appear 2s ease;
+}
 
-        .love-meter-container {
-            position: relative;
-            width: 80px;
-            height: 300px;
-            border: 4px solid var(--brown);
-            border-radius: 40px;
-            background: rgba(255,255,255,0.5);
-            overflow: visible; /* Allows liquid to go out */
-            display: flex;
-            align-items: flex-end;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+.message h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+}
 
-        /* Graduations */
-        .graduation {
-            position: absolute;
-            right: -30px;
-            color: var(--brown);
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-        .g-0 { bottom: 10px; }
-        .g-50 { bottom: 50%; }
-        .g-100 { top: 10px; }
+.message p {
+    font-size: 1.3rem;
+    margin-top: 20px;
+}
 
-        /* The Liquid */
-        .liquid {
-            width: 100%;
-            height: 0%;
-            background: linear-gradient(to top, #ff69b4, #ff1493);
-            border-radius: 0 0 35px 35px;
-            animation: fillUp 4s ease-in-out forwards;
-            position: relative;
-            box-shadow: 0 0 10px var(--pink-deep);
-        }
+@keyframes appear {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: scale(1); }
+}
 
-        .liquid::after {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            background: #ff1493;
-            border-radius: 50%;
-            opacity: 0.8;
-        }
+.heart {
+    position: absolute;
+    bottom: -40px;
+    color: rgba(255,255,255,0.6);
+    font-size: 20px;
+    animation: rise linear infinite;
+}
 
-        @keyframes fillUp {
-            0% { height: 0%; }
-            50% { height: 50%; }
-            80% { height: 100%; border-radius: 35px; } 
-            100% { height: 300%; border-radius: 35px 35px 0 0; } /* Goes way up */
-        }
-
-        .next-btn {
-            padding: 12px 30px;
-            background-color: var(--brown);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s;
-            font-family: 'Pacifico', cursive;
-        }
-
-        .next-btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .next-btn:hover {
-            background-color: #3e2723;
-        }
-    </style>
+@keyframes rise {
+    from { transform: translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    to { transform: translateY(-120vh); opacity: 0; }
+}
+</style>
 </head>
+
 <body>
 
-    <h2 id="statusText">Échelle de 1 à 100...</h2>
+<div class="message">
+    <h1>Je t’aime 💖</h1>
+    <p>Merci d’être ma Valentine 🌹</p>
+</div>
 
-    <div class="love-meter-container">
-        <span class="graduation g-100">100</span>
-        <span class="graduation g-50">50</span>
-        <span class="graduation g-0">0</span>
-        <div class="liquid" id="liquid"></div>
-    </div>
+<script>
+function createHearts() {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.fontSize = 15 + Math.random() * 30 + "px";
+    h.style.animationDuration = 5 + Math.random() * 5 + "s";
+    document.body.appendChild(h);
 
-    <button class="next-btn" id="nextBtn" onclick="window.location.href='page3.html'">Suite ➜</button>
+    setTimeout(() => h.remove(), 10000);
+}
 
-    <script>
-        const statusText = document.getElementById('statusText');
-        const nextBtn = document.getElementById('nextBtn');
-        const liquid = document.getElementById('liquid');
+setInterval(createHearts, 250);
+</script>
 
-        // Detect animation end via timeout synced with CSS
-        setTimeout(() => {
-            statusText.innerHTML = "Mon amour dépasse l'échelle ! 💥";
-            statusText.style.color = "#d81b60";
-            statusText.style.transform = "scale(1.2)";
-        }, 3200); // Just before it overflows screen
-
-        setTimeout(() => {
-            nextBtn.classList.add('visible');
-        }, 4000);
-    </script>
 </body>
 </html>
