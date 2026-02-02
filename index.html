@@ -1,202 +1,221 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Une question importante...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --pink-light: #ffe4e1;
-            --pink-deep: #ff69b4;
-            --brown: #5d4037;
-            --brown-light: #8d6e63;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ma Valentine ❤️</title>
 
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--pink-light);
-            font-family: 'Quicksand', sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
+<style>
+/* =========================
+   RESET + BASE
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-        /* Background Hearts Animation */
-        .bg-heart {
-            position: absolute;
-            color: rgba(255, 105, 180, 0.3);
-            font-size: 20px;
-            animation: floatUp infinite linear;
-            z-index: 0;
-            user-select: none;
-        }
+body {
+    overflow: hidden;
+    height: 100vh;
+    background: linear-gradient(180deg, #ffe4ec, #d8b4a0);
+}
 
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
+/* =========================
+   TEXTE CENTRAL
+========================= */
+.container {
+    position: relative;
+    z-index: 5;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-        /* Content */
-        .container {
-            text-align: center;
-            z-index: 10;
-        }
+h1 {
+    color: #7a2e2e;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 50px;
+    text-align: center;
+    animation: pulse 3s infinite;
+}
 
-        h1 {
-            font-family: 'Pacifico', cursive;
-            color: var(--brown);
-            font-size: 3.5rem;
-            margin-bottom: 50px;
-            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
-        }
+@keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
 
-        .btn-group {
-            position: relative;
-            height: 100px; 
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
+/* =========================
+   BOUTONS
+========================= */
+.buttons {
+    position: relative;
+    width: 300px;
+    height: 120px;
+}
 
-        button {
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: bold;
-            transition: transform 0.2s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+button {
+    position: absolute;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.4s ease, left 0.4s ease, top 0.4s ease;
+}
 
-        .btn-oui {
-            background-color: var(--pink-deep);
-            color: white;
-        }
+#yesBtn {
+    left: 0;
+    background: #ff6fa5;
+    color: white;
+    box-shadow: 0 10px 25px rgba(255,111,165,0.5);
+}
 
-        .btn-oui:hover {
-            transform: scale(1.1);
-            background-color: #ff1493;
-        }
+#yesBtn:hover {
+    transform: scale(1.1);
+}
 
-        .btn-non {
-            background-color: var(--brown);
-            color: white;
-            position: absolute; /* Important for movement */
-        }
+#noBtn {
+    right: 0;
+    background: #7a4a2e;
+    color: #fff3e8;
+    cursor: default;
+}
 
-        /* Explosion Hearts */
-        .explosion-heart {
-            position: absolute;
-            font-size: 30px;
-            animation: explode 1s ease-out forwards;
-            pointer-events: none;
-        }
+/* =========================
+   COEURS FLOTTANTS FOND
+========================= */
+.heart {
+    position: absolute;
+    bottom: -50px;
+    color: rgba(255,105,180,0.6);
+    font-size: 20px;
+    animation: floatUp linear infinite;
+}
 
-        @keyframes explode {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
-        }
+@keyframes floatUp {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    to {
+        transform: translateY(-120vh) scale(1.8);
+        opacity: 0;
+    }
+}
 
-        /* Transition effect */
-        .page-transition {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--pink-deep);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s;
-            z-index: 100;
-        }
-    </style>
+/* =========================
+   EXPLOSION OUI
+========================= */
+.explosion {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, #ffb6c1, #b56576);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    animation: explode 2s forwards;
+}
+
+@keyframes explode {
+    0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+    30% { opacity: 1; }
+    100% { opacity: 1; transform: scale(1.4) rotate(360deg); }
+}
+
+.big-heart {
+    font-size: 120px;
+    animation: heartBeat 1s infinite;
+    color: #ff2e63;
+}
+
+@keyframes heartBeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="page-transition" id="transitionOverlay"></div>
+<div class="container">
+    <h1>Veux-tu être ma Valentine ? 💖</h1>
 
-    <div class="container">
-        <h1>Veux-tu être ma Valentine ?</h1>
-        <div class="btn-group">
-            <button class="btn-oui" id="btnOui">OUI 💖</button>
-            <button class="btn-non" id="btnNon">NON</button>
-        </div>
+    <div class="buttons">
+        <button id="yesBtn">OUI</button>
+        <button id="noBtn">NON</button>
     </div>
+</div>
 
-    <script>
-        // Background Floating Hearts
-        function createBgHearts() {
-            const heart = document.createElement('div');
-            heart.classList.add('bg-heart');
-            heart.innerHTML = '❤';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
-            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-            document.body.appendChild(heart);
-            
-            setTimeout(() => { heart.remove(); }, 6000);
-        }
-        setInterval(createBgHearts, 300);
+<script>
+/* =========================
+   FOND COEURS
+========================= */
+function createBackgroundHearts() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = 15 + Math.random() * 25 + "px";
+    heart.style.animationDuration = 6 + Math.random() * 6 + "s";
+    document.body.appendChild(heart);
 
-        // Logic for "NON" button (Runs away)
-        const btnNon = document.getElementById('btnNon');
-        
-        // Position initiale relative
-        btnNon.style.left = '60%'; 
+    setTimeout(() => heart.remove(), 12000);
+}
 
-        const moveButton = () => {
-            const x = Math.random() * (window.innerWidth - btnNon.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btnNon.offsetHeight);
-            
-            btnNon.style.position = 'fixed'; // Switch to fixed to move freely
-            btnNon.style.left = `${x}px`;
-            btnNon.style.top = `${y}px`;
-        };
+setInterval(createBackgroundHearts, 300);
 
-        btnNon.addEventListener('mouseover', moveButton);
-        btnNon.addEventListener('click', moveButton); // Au cas où sur mobile
-        btnNon.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
+/* =========================
+   BOUTON NON QUI FUIT
+========================= */
+const noBtn = document.getElementById("noBtn");
 
-        // Logic for "OUI" button
-        const btnOui = document.getElementById('btnOui');
-        
-        btnOui.addEventListener('click', (e) => {
-            // Create heart explosion
-            for(let i=0; i<50; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('explosion-heart');
-                heart.innerHTML = '💖';
-                heart.style.left = (e.clientX) + 'px';
-                heart.style.top = (e.clientY) + 'px';
-                
-                // Random destination
-                const angle = Math.random() * Math.PI * 2;
-                const velocity = Math.random() * 200 + 100;
-                const tx = Math.cos(angle) * velocity + 'px';
-                const ty = Math.sin(angle) * velocity + 'px';
-                
-                heart.style.setProperty('--tx', tx);
-                heart.style.setProperty('--ty', ty);
-                
-                document.body.appendChild(heart);
-            }
+noBtn.addEventListener("mouseenter", () => {
+    const maxX = window.innerWidth - 120;
+    const maxY = window.innerHeight - 60;
 
-            // Page Transition
-            setTimeout(() => {
-                document.getElementById('transitionOverlay').style.opacity = '1';
-                setTimeout(() => {
-                    window.location.href = 'page2.html';
-                }, 1000);
-            }, 1000);
-        });
-    </script>
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+/* =========================
+   BOUTON OUI
+========================= */
+const yesBtn = document.getElementById("yesBtn");
+
+yesBtn.addEventListener("click", () => {
+    const explosion = document.createElement("div");
+    explosion.className = "explosion";
+    explosion.innerHTML = `<div class="big-heart">💘</div>`;
+    document.body.appendChild(explosion);
+
+    // pluie de cœurs
+    for (let i = 0; i < 80; i++) {
+        const h = document.createElement("div");
+        h.innerHTML = "❤";
+        h.style.position = "fixed";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.top = Math.random() * 100 + "vh";
+        h.style.fontSize = 15 + Math.random() * 25 + "px";
+        h.style.color = "rgba(255,0,100,0.8)";
+        h.style.animation = "floatUp 2s linear forwards";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 2000);
+    }
+
+    setTimeout(() => {
+        window.location.href = "page2.html";
+    }, 2000);
+});
+</script>
+
 </body>
 </html>
