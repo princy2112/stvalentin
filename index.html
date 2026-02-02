@@ -106,31 +106,40 @@ button {
 <script>
 const noBtn = document.getElementById('noBtn');
 
-/* position réelle accumulée */
 let posX = noBtn.offsetLeft;
 let posY = noBtn.offsetTop;
 
 document.addEventListener('mousemove', (e) => {
     const rect = noBtn.getBoundingClientRect();
-    const btnCenterX = rect.left + rect.width / 2;
-    const btnCenterY = rect.top + rect.height / 2;
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-    const dx = e.clientX - btnCenterX;
-    const dy = e.clientY - btnCenterY;
+    const dx = e.clientX - centerX;
+    const dy = e.clientY - centerY;
     const distance = Math.hypot(dx, dy);
 
-    const trigger = 120;   // distance d'activation
-    const speed = 20;      // force de fuite
+    const trigger = 140;  // distance d'activation
+    const speed = 22;     // force de fuite
 
     if (distance < trigger) {
         const angle = Math.atan2(dy, dx);
 
-        /* on s'éloigne du curseur */
+        // déplacement réel
         posX -= Math.cos(angle) * speed;
         posY -= Math.sin(angle) * speed;
 
         noBtn.style.left = posX + 'px';
         noBtn.style.top = posY + 'px';
+
+        // 💥 DÉFORMATION (stretch / squash)
+        const stress = Math.min((trigger - distance) / trigger, 1);
+        const scaleX = 1 + stress * 0.4;
+        const scaleY = 1 - stress * 0.3;
+
+        noBtn.style.transform = `scale(${scaleX}, ${scaleY}) rotate(${stress * 6}deg)`;
+    } else {
+        // retour à la normale
+        noBtn.style.transform = 'scale(1,1) rotate(0deg)';
     }
 });
 
@@ -139,8 +148,6 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     window.location.href = 'yes.html';
 });
 </script>
-
-
 
 </body>
 </html>
