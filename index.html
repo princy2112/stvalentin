@@ -118,17 +118,31 @@ setInterval(() => {
     setTimeout(() => heart.remove(), 10000);
 }, 250);
 
-/* 😈 BOUTON NON : ESQUIVE LÉGÈRE */
+/* 😈 BOUTON NON : FUITE AVANT CONTACT */
 const noBtn = document.getElementById('noBtn');
+let offsetX = 0;
+let offsetY = 0;
 
-noBtn.addEventListener('mouseenter', () => {
-    const moveX = (Math.random() > 0.5 ? 1 : -1) * 30;
-    const moveY = (Math.random() > 0.5 ? 1 : -1) * 15;
-    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-});
+document.addEventListener('mousemove', (e) => {
+    const rect = noBtn.getBoundingClientRect();
+    const btnX = rect.left + rect.width / 2;
+    const btnY = rect.top + rect.height / 2;
 
-noBtn.addEventListener('mouseleave', () => {
-    noBtn.style.transform = 'translate(0, 0)';
+    const distX = e.clientX - btnX;
+    const distY = e.clientY - btnY;
+    const distance = Math.sqrt(distX * distX + distY * distY);
+
+    const triggerDistance = 80; // distance d'activation
+    const maxMove = 35;         // déplacement max
+
+    if (distance < triggerDistance) {
+        const angle = Math.atan2(distY, distX);
+        offsetX = -Math.cos(angle) * maxMove;
+        offsetY = -Math.sin(angle) * maxMove;
+        noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    } else {
+        noBtn.style.transform = 'translate(0, 0)';
+    }
 });
 
 /* 💖 BOUTON OUI */
@@ -136,6 +150,7 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     window.location.href = 'yes.html';
 });
 </script>
+
 
 </body>
 </html>
