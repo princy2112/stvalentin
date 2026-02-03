@@ -30,15 +30,9 @@ html, body {
 }
 
 @keyframes rise {
-    from {
-        transform: translateY(110vh) scale(0.6);
-        opacity: 0;
-    }
+    from { transform: translateY(110vh) scale(0.6); opacity: 0; }
     10% { opacity: 0.7; }
-    to {
-        transform: translateY(-10vh) scale(1.2);
-        opacity: 0;
-    }
+    to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
 }
 
 .container {
@@ -70,11 +64,11 @@ button {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.15s ease, left 0.15s ease, top 0.15s ease;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: normal;
+    transition: transform 0.1s ease, left 0.1s ease, top 0.1s ease;
 }
 
 #yesBtn {
@@ -110,8 +104,7 @@ button {
 <div class="hearts-container" id="hearts"></div>
 
 <div class="container">
-    <h1>Veux-tu être ma Valentine ?</h1>
-
+    <h1>Veux-tu être ma Valentine ? 💘</h1>
     <div class="buttons">
         <button id="yesBtn">OUI 💖</button>
         <button id="noBtn"><span>NON 🙈</span></button>
@@ -121,7 +114,6 @@ button {
 <script>
 /* 💕 PLUIE CONTINUE DE CŒURS */
 const heartsContainer = document.getElementById('hearts');
-
 setInterval(() => {
     const heart = document.createElement('div');
     heart.className = 'heart';
@@ -129,30 +121,31 @@ setInterval(() => {
     heart.style.left = Math.random() * 100 + 'vw';
     heart.style.animationDuration = (6 + Math.random() * 4) + 's';
     heartsContainer.appendChild(heart);
-
     setTimeout(() => heart.remove(), 10000);
 }, 250);
 
-/* 😈 BOUTON NON : FUITE + STRETCH LÉGER */
+/* 😈 BOUTON NON : FUITE PROPORTIONNELLE */
 const noBtn = document.getElementById('noBtn');
-const trigger = 120;  // distance d'activation
-const speed = 15;     // force de fuite
+const trigger = 150; // distance d'activation
+const maxSpeed = 8;  // vitesse maximale
 
 document.addEventListener('mousemove', (e) => {
     const rect = noBtn.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    const dx = e.clientX - centerX;
-    const dy = e.clientY - centerY;
+    const dx = centerX - e.clientX;
+    const dy = centerY - e.clientY;
     const distance = Math.hypot(dx, dy);
 
     if (distance < trigger) {
-        // 🔹 vecteur opposé à la souris
-        let moveX = -(dx / distance) * speed;
-        let moveY = -(dy / distance) * speed;
+        // vitesse proportionnelle à la proximité
+        const speed = maxSpeed * (1 - distance / trigger);
 
-        // position actuelle
+        let moveX = (dx / distance) * speed;
+        let moveY = (dy / distance) * speed;
+
+        // nouvelle position
         let newX = rect.left + moveX;
         let newY = rect.top + moveY;
 
@@ -163,7 +156,7 @@ document.addEventListener('mousemove', (e) => {
         noBtn.style.left = newX + 'px';
         noBtn.style.top = newY + 'px';
 
-        // 💥 STRETCH LÉGER
+        // stretch léger
         const stress = Math.min((trigger - distance) / trigger, 1);
         const scaleX = 1 + stress * 0.2;
         const scaleY = 1 - stress * 0.15;
