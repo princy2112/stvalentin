@@ -158,6 +158,14 @@ document.addEventListener('mousemove', (e) => {
         posX += moveX;
         posY += moveY;
 
+        // limiter à l'écran
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
+        posX = Math.max(0, Math.min(posX, maxX));
+        posY = Math.max(0, Math.min(posY, maxY));
+
+        noBtn.style.left = posX + 'px';
+        noBtn.style.top = posY + 'px';
         // 💥 STRETCH LÉGER
         const stress = Math.min((trigger - distance) / trigger, 1);
         const scaleX = 1 + stress * 0.2;
