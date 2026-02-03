@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Saint-Valentin 💕</title>
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saint-Valentin 💕</title>
+
 <style>
+/* 🔹 RESET & FOND */
 html, body {
     margin: 0;
     padding: 0;
@@ -73,10 +81,11 @@ button {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: left 0.15s ease, top 0.15s ease, transform 0.15s ease;
+    transition: transform 0.15s ease, left 0.15s ease, top 0.15s ease;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: normal; /* ❌ pas de gras */
 }
 
 /* BOUTON OUI */
@@ -86,6 +95,7 @@ button {
     width: 140px;
     height: 60px;
     left: 0;
+    top: 30px;
     position: absolute;
 }
 
@@ -93,17 +103,17 @@ button {
 #noBtn {
     background: #7b4a3a;
     color: white;
-    width: 100px;
+    width: 140px;
     height: 60px;
-    left: 200px;
-    top: 40px;
+    left: 180px;
+    top: 30px;
     position: absolute;
 }
 
 #noBtn span {
     pointer-events: none;
     display: inline-block;
-    font-weight: bold;
+    font-weight: normal; /* ❌ pas de gras */
 }
 </style>
 </head>
@@ -136,7 +146,7 @@ setInterval(() => {
     setTimeout(() => heart.remove(), 10000);
 }, 250);
 
-/* 😈 BOUTON NON : FUITE + DÉFORMATION */
+/* 😈 BOUTON NON : FUITE + LÉGER STRETCH */
 const noBtn = document.getElementById('noBtn');
 let posX = noBtn.offsetLeft;
 let posY = noBtn.offsetTop;
@@ -150,19 +160,33 @@ document.addEventListener('mousemove', (e) => {
     const dy = e.clientY - centerY;
     const distance = Math.hypot(dx, dy);
 
-    const trigger = 140;  // distance d'activation
-    const speed = 22;     // force de fuite
+    const trigger = 120;  // distance d'activation
+    const speed = 15;     // force de fuite
 
     if (distance < trigger) {
         const angle = Math.atan2(dy, dx);
 
-        // déplacement réel
         posX -= Math.cos(angle) * speed;
         posY -= Math.sin(angle) * speed;
+
+        // limiter à l'écran
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
+        posX = Math.max(0, Math.min(posX, maxX));
+        posY = Math.max(0, Math.min(posY, maxY));
 
         noBtn.style.left = posX + 'px';
         noBtn.style.top = posY + 'px';
 
+        // 💥 STRETCH LÉGER
+        const stress = Math.min((trigger - distance) / trigger, 1);
+        const scaleX = 1 + stress * 0.2;
+        const scaleY = 1 - stress * 0.15;
+
+        noBtn.style.transform = `scale(${scaleX}, ${scaleY})`;
+    } else {
+        noBtn.style.transform = 'scale(1,1)';
+    }
 });
 
 /* 💖 BOUTON OUI */
@@ -170,6 +194,10 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     window.location.href = 'yes.html';
 });
 </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
