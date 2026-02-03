@@ -5,15 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Saint-Valentin 💕</title>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saint-Valentin 💕</title>
-
 <style>
-/* 🔹 RESET & FOND */
 html, body {
     margin: 0;
     padding: 0;
@@ -23,7 +15,6 @@ html, body {
     overflow: hidden;
 }
 
-/* 💕 CONTENEUR DES CŒURS EN FOND */
 .hearts-container {
     position: fixed;
     inset: 0;
@@ -50,7 +41,6 @@ html, body {
     }
 }
 
-/* 💌 CONTENU PRINCIPAL */
 .container {
     position: relative;
     z-index: 2;
@@ -74,7 +64,6 @@ h1 {
     height: 120px;
 }
 
-/* BOUTONS */
 button {
     padding: 0;
     font-size: 1.2em;
@@ -85,10 +74,9 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: normal; /* ❌ pas de gras */
+    font-weight: normal;
 }
 
-/* BOUTON OUI */
 #yesBtn {
     background: #ff5fa2;
     color: white;
@@ -99,7 +87,6 @@ button {
     position: absolute;
 }
 
-/* BOUTON NON */
 #noBtn {
     background: #7b4a3a;
     color: white;
@@ -113,7 +100,7 @@ button {
 #noBtn span {
     pointer-events: none;
     display: inline-block;
-    font-weight: normal; /* ❌ pas de gras */
+    font-weight: normal;
 }
 </style>
 </head>
@@ -146,7 +133,7 @@ setInterval(() => {
     setTimeout(() => heart.remove(), 10000);
 }, 250);
 
-/* 😈 BOUTON NON : FUITE + LÉGER STRETCH */
+/* 😈 BOUTON NON : FUITE + STRETCH LÉGER */
 const noBtn = document.getElementById('noBtn');
 let posX = noBtn.offsetLeft;
 let posY = noBtn.offsetTop;
@@ -164,10 +151,12 @@ document.addEventListener('mousemove', (e) => {
     const speed = 15;     // force de fuite
 
     if (distance < trigger) {
-        const angle = Math.atan2(dy, dx);
+        // 🔹 vecteur opposé à la souris
+        const moveX = -(dx / distance) * speed;
+        const moveY = -(dy / distance) * speed;
 
-        posX -= Math.cos(angle) * speed;
-        posY -= Math.sin(angle) * speed;
+        posX += moveX;
+        posY += moveY;
 
         // limiter à l'écran
         const maxX = window.innerWidth - noBtn.offsetWidth;
@@ -194,10 +183,6 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     window.location.href = 'yes.html';
 });
 </script>
-
-</body>
-</html>
-
 
 </body>
 </html>
