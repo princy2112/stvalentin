@@ -135,8 +135,8 @@ setInterval(() => {
 
 /* 😈 BOUTON NON : FUITE + STRETCH LÉGER */
 const noBtn = document.getElementById('noBtn');
-let posX = noBtn.offsetLeft;
-let posY = noBtn.offsetTop;
+const trigger = 120;  // distance d'activation
+const speed = 15;     // force de fuite
 
 document.addEventListener('mousemove', (e) => {
     const rect = noBtn.getBoundingClientRect();
@@ -147,31 +147,26 @@ document.addEventListener('mousemove', (e) => {
     const dy = e.clientY - centerY;
     const distance = Math.hypot(dx, dy);
 
-    const trigger = 120;  // distance d'activation
-    const speed = 15;     // force de fuite
-
     if (distance < trigger) {
         // 🔹 vecteur opposé à la souris
-        const moveX = -(dx / distance) * speed;
-        const moveY = -(dy / distance) * speed;
+        let moveX = -(dx / distance) * speed;
+        let moveY = -(dy / distance) * speed;
 
-        posX += moveX;
-        posY += moveY;
+        // position actuelle
+        let newX = rect.left + moveX;
+        let newY = rect.top + moveY;
 
         // limiter à l'écran
-        const maxX = window.innerWidth - noBtn.offsetWidth;
-        const maxY = window.innerHeight - noBtn.offsetHeight;
-        posX = Math.max(0, Math.min(posX, maxX));
-        posY = Math.max(0, Math.min(posY, maxY));
+        newX = Math.max(0, Math.min(newX, window.innerWidth - rect.width));
+        newY = Math.max(0, Math.min(newY, window.innerHeight - rect.height));
 
-        noBtn.style.left = posX + 'px';
-        noBtn.style.top = posY + 'px';
+        noBtn.style.left = newX + 'px';
+        noBtn.style.top = newY + 'px';
 
         // 💥 STRETCH LÉGER
         const stress = Math.min((trigger - distance) / trigger, 1);
         const scaleX = 1 + stress * 0.2;
         const scaleY = 1 - stress * 0.15;
-
         noBtn.style.transform = `scale(${scaleX}, ${scaleY})`;
     } else {
         noBtn.style.transform = 'scale(1,1)';
